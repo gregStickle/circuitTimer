@@ -23,6 +23,20 @@ body {
   gap: 0.1rem;
 }
 
+.form-column {
+  display: flex;
+  margin-top: 0.5em;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.form-column button {
+  display: flex;
+  width: 180px;
+  justify-content: center;
+}
+
 .btn {
   background: hsl(200, 100%, 50%, 0.1);
   border: 1px solid hsl(200, 100%, 50%);

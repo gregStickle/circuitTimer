@@ -75,6 +75,10 @@ export default function App() {
       <div className="form-row">
         <button className="btn start">Start Workout</button>
       </div>
+      <div className="form-column">
+        <button className="btn">Set -</button>
+        <button className="btn">Set +</button>
+      </div>
     </>
   );
 }
