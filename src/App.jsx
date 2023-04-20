@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./styles.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [newExercise, setNewExercise] = useState("");
+  const [newTime, setNewTime] = useState("");
+  const [exercises, setExercises] = useState([]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    setExercises((currentExercises) => {
+      return [
+        ...exercises,
+        { id: crypto.randomUUID(), title: newExercise, time: newTime },
+      ];
+    });
+  }
+
+  function handleDelete() {}
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <>
+      <form onSubmit={handleSubmit} className="new-item-form">
+        <div className="form-row">
+          <label htmlFor="exercise">New Exercise</label>
+          <input
+            value={newExercise}
+            onChange={(e) => setNewExercise(e.target.value)}
+            type="text"
+            id="exercise"
+            maxLength={40}
+            required="true"
+          />
+        </div>
+        <div className="form-row">
+          <label htmlFor="time">Time</label>
+          <input
+            value={newTime}
+            onChange={(e) => setNewTime(e.target.value)}
+            type="text"
+            id="time"
+            placeholder="in seconds"
+            maxLength={5}
+            required="true"
+          />
+        </div>
+        <button className="btn">Add</button>
+      </form>
+      <h1 className="header">Exercise List</h1>
+      <ul className="list">
+        {exercises.map((exercise) => {
+          return (
+            <li key={exercise.id}>
+              <label>
+                {exercise.title} | {exercise.time} sec
+              </label>
+              <button className="btn btn-danger">Delete</button>
+            </li>
+          );
+        })}
+      </ul>
+      <div className="form-row">
+        <button className="btn start">Start Workout</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    </>
+  );
 }
-
-export default App
