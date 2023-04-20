@@ -15,9 +15,16 @@ export default function App() {
         { id: crypto.randomUUID(), title: newExercise, time: newTime },
       ];
     });
+
+    setNewExercise("");
+    setNewTime("");
   }
 
-  function handleDelete() {}
+  function deleteExercise(id) {
+    setExercises((currentExercises) => {
+      return currentExercises.filter((exercise) => exercise.id !== id);
+    });
+  }
 
   return (
     <>
@@ -55,7 +62,12 @@ export default function App() {
               <label>
                 {exercise.title} | {exercise.time} sec
               </label>
-              <button className="btn btn-danger">Delete</button>
+              <button
+                className="btn btn-danger"
+                onClick={() => deleteExercise(exercise.id)}
+              >
+                Delete
+              </button>
             </li>
           );
         })}
